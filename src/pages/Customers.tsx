@@ -19,7 +19,7 @@ import { motion } from 'motion/react';
 import { Customer } from '../types';
 
 const mockCustomers: Customer[] = [
-  { id: '1', name: 'Jahid Hasan', email: 'jahid@example.com', phone: '01711223344', totalOrders: 12, totalSpent: 28500, lastOrder: '2026-05-04' },
+  { id: '1', name: 'Jahid Hasan', email: 'jahid@example.com', phone: '01711223344', totalOrders: 12, totalSpent: 285000, lastOrder: '2026-05-04' },
   { id: '2', name: 'Rina Begum', email: 'rina.b@gmail.com', phone: '01822334455', totalOrders: 4, totalSpent: 5200, lastOrder: '2026-05-01' },
   { id: '3', name: 'Sumon Mia', email: 'sumon12@outlook.com', phone: '01933445566', totalOrders: 1, totalSpent: 850, lastOrder: '2026-05-03' },
   { id: '4', name: 'Labib Ahmed', email: 'labib.dev@gmail.com', phone: '01644556677', totalOrders: 42, totalSpent: 94200, lastOrder: '2026-05-04' },
@@ -38,7 +38,7 @@ export default function Customers() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {mockCustomers.slice(0, 3).map((customer, i) => (
           <GlassCard key={customer.id} hover className="relative overflow-hidden group">
              {i === 0 && <div className="absolute top-0 right-0 p-1 px-3 bg-brand-primary text-[8px] font-black uppercase text-white rounded-bl-lg">Top Customer</div>}
@@ -59,7 +59,7 @@ export default function Customers() {
                 </div>
                 <div className="bg-slate-100 dark:bg-white/5 p-3 rounded-xl border border-slate-200 dark:border-white/5">
                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center">Value</p>
-                   <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400 text-center">{formatCurrency(customer.totalSpent)}</p>
+                   <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400 text-center text-wrap overflow-scroll">{formatCurrency(customer.totalSpent)}</p>
                 </div>
              </div>
 

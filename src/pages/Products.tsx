@@ -34,52 +34,52 @@ export default function Products() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-         <GlassCard className="p-4 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
-               <Package className="w-6 h-6" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+         <GlassCard className="p-4 flex items-center gap-4 border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900 shadow-sm">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+               <Package className="w-5 h-5 md:w-6 h-6" />
             </div>
             <div>
                <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Total SKUs</p>
-               <p className="text-xl font-bold text-slate-900 dark:text-white">124 Items</p>
+               <p className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">124 Items</p>
             </div>
          </GlassCard>
-         <GlassCard className="p-4 flex items-center gap-4 border-rose-500/20">
-            <div className="w-12 h-12 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400">
-               <AlertCircle className="w-6 h-6" />
+         <GlassCard className="p-4 flex items-center gap-4 border border-rose-500/10 bg-white dark:bg-slate-900 shadow-sm">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-400">
+               <AlertCircle className="w-5 h-5 md:w-6 h-6" />
             </div>
             <div>
                <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Out of Stock</p>
-               <p className="text-xl font-bold text-white text-rose-400">8 Items</p>
+               <p className="text-lg md:text-xl font-bold text-rose-500">8 Items</p>
             </div>
          </GlassCard>
-         <GlassCard className="p-4 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400">
-               <Boxes className="w-6 h-6" />
+         <GlassCard className="p-4 flex items-center gap-4 border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900 shadow-sm">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400">
+               <Boxes className="w-5 h-5 md:w-6 h-6" />
             </div>
             <div>
                <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Total Value</p>
-               <p className="text-xl font-bold text-slate-900 dark:text-white">{formatCurrency(845200)}</p>
+               <p className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">{formatCurrency(845200)}</p>
             </div>
          </GlassCard>
-         <GlassCard className="p-4 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary">
-               <Tag className="w-6 h-6" />
+         <GlassCard className="p-4 flex items-center gap-4 border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900 shadow-sm">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary">
+               <Tag className="w-5 h-5 md:w-6 h-6" />
             </div>
             <div>
                <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Categories</p>
-               <p className="text-xl font-bold text-slate-900 dark:text-white">12 Types</p>
+               <p className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">12 Types</p>
             </div>
          </GlassCard>
       </div>
 
-      <GlassCard className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
+      <GlassCard className="p-0 border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900 shadow-sm">
+          <div className="overflow-x-auto scrollbar-hide">
+            <table className="w-full text-left min-w-[600px] md:min-w-full">
                <thead>
                   <tr className="border-b border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-widest font-bold">
                      <th className="px-6 py-4">Product Info</th>
-                     <th className="px-6 py-4">Category</th>
+                     <th className="px-6 py-4 hidden md:table-cell">Category</th>
                      <th className="px-6 py-4">Price</th>
                      <th className="px-6 py-4">Stock</th>
                      <th className="px-6 py-4 text-right">Actions</th>
@@ -90,29 +90,29 @@ export default function Products() {
                     <tr key={p.id} className="border-b border-slate-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors group">
                        <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                             <div className="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/5 overflow-hidden">
+                             <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/5 overflow-hidden">
                                 <img src={p.image} alt={p.name} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                              </div>
                              <div className="flex flex-col">
-                                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors">{p.name}</span>
-                                <span className="text-[10px] font-mono text-slate-500 uppercase tracking-tighter">SKU: {p.sku}</span>
+                                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors truncate max-w-[150px]">{p.name}</span>
+                                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-tighter">SKU: {p.sku}</span>
                              </div>
                           </div>
                        </td>
-                       <td className="px-6 py-4 text-xs font-medium text-slate-400">
-                          <span className="px-2 py-1 glass rounded-lg">{p.category}</span>
+                       <td className="px-6 py-4 text-xs font-medium text-slate-400 hidden md:table-cell">
+                          <span className="px-2 py-1 bg-slate-100 dark:bg-white/5 rounded-lg border border-slate-200 dark:border-white/5">{p.category}</span>
                        </td>
                        <td className="px-6 py-4 font-bold text-slate-900 dark:text-white text-sm">
                           {formatCurrency(p.price)}
                        </td>
                        <td className="px-6 py-4">
                           <div className="flex flex-col gap-1">
-                             <div className="flex items-center justify-between text-[10px] font-bold">
+                             <div className="flex items-center justify-between text-[9px] font-bold">
                                <span className={cn(p.stock <= 5 ? "text-rose-400" : "text-slate-500")}>
-                                 {p.stock === 0 ? 'Out of Stock' : `${p.stock} units left`}
+                                 {p.stock === 0 ? 'Out of Stock' : `${p.stock} Units`}
                                </span>
                              </div>
-                             <div className="w-24 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                             <div className="w-20 md:w-24 h-1 bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
                                 <motion.div 
                                   initial={{ width: 0 }}
                                   animate={{ width: `${Math.min((p.stock / 50) * 100, 100)}%` }}
@@ -122,11 +122,11 @@ export default function Products() {
                           </div>
                        </td>
                        <td className="px-6 py-4">
-                          <div className="flex items-center justify-end gap-2">
-                             <button className="p-2 rounded-lg glass text-slate-400 hover:text-white transition-all">
+                          <div className="flex items-center justify-end gap-1 md:gap-2">
+                             <button className="p-1.5 md:p-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-400 hover:text-indigo-500 transition-all">
                                 <Edit3 className="w-4 h-4" />
                              </button>
-                             <button className="p-2 rounded-lg glass text-slate-400 hover:text-rose-400 transition-all">
+                             <button className="p-1.5 md:p-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-400 hover:text-rose-400 transition-all">
                                 <Trash2 className="w-4 h-4" />
                              </button>
                           </div>

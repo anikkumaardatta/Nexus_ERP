@@ -165,16 +165,16 @@ export default function Orders() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+        <div className="overflow-x-auto scrollbar-hide">
+          <table className="w-full text-left border-collapse min-w-[600px] md:min-w-full">
             <thead>
               <tr className="border-b border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] text-slate-500 dark:text-slate-400 text-[10px] uppercase tracking-widest font-bold">
-                <th className="px-6 py-4">Order ID</th>
-                <th className="px-6 py-4">Customer</th>
-                <th className="px-6 py-4 text-center">Amount</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4">Date</th>
-                <th className="px-6 py-4 text-right">Action</th>
+                <th className="px-4 md:px-6 py-4">Order ID</th>
+                <th className="px-4 md:px-6 py-4">Customer</th>
+                <th className="px-4 md:px-6 py-4 text-center">Amount</th>
+                <th className="px-4 md:px-6 py-4">Status</th>
+                <th className="px-4 md:px-6 py-4 hidden md:table-cell">Date</th>
+                <th className="px-4 md:px-6 py-4 text-right">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -186,42 +186,42 @@ export default function Orders() {
                     layoutId={order.id}
                     className="border-b border-slate-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-white/[0.02] group transition-colors"
                   >
-                    <td className="px-6 py-4">
-                      <span className="text-sm font-mono font-bold text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors">{order.id}</span>
+                    <td className="px-4 md:px-6 py-4">
+                       <span className="text-sm font-mono font-bold text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors">{order.id}</span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 md:px-6 py-4">
                        <div className="flex flex-col">
-                         <span className="text-sm font-medium text-slate-900 dark:text-white">{order.customerName}</span>
-                         <span className="text-xs text-slate-500">{order.customerPhone}</span>
+                         <span className="text-sm font-medium text-slate-900 dark:text-white truncate max-w-[120px] md:max-w-none">{order.customerName}</span>
+                         <span className="text-[10px] md:text-xs text-slate-500">{order.customerPhone}</span>
                        </div>
                     </td>
-                    <td className="px-6 py-4 text-center">
-                      <span className="text-sm font-bold text-slate-900 dark:text-white">{formatCurrency(order.total)}</span>
+                    <td className="px-4 md:px-6 py-4 text-center">
+                       <span className="text-sm font-bold text-slate-900 dark:text-white">{formatCurrency(order.total)}</span>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className={cn("inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight", style.bg, style.text)}>
-                        <style.icon className="w-3.5 h-3.5" />
-                        {order.status}
-                      </div>
+                    <td className="px-4 md:px-6 py-4">
+                       <div className={cn("inline-flex items-center gap-1 md:gap-1.5 px-2 md:px-2.5 py-1 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-tight", style.bg, style.text)}>
+                         <style.icon className="w-3 md:w-3.5 h-3 md:h-3.5" />
+                         <span className="truncate max-w-[60px] md:max-w-none">{order.status}</span>
+                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                       <span className="text-xs text-slate-500">{order.createdAt}</span>
+                    <td className="px-4 md:px-6 py-4 hidden md:table-cell">
+                        <span className="text-xs text-slate-500">{order.createdAt}</span>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center justify-end gap-2">
-                        <button 
-                          onClick={() => { setSelectedOrderId(order.id); setIsCourierModalOpen(true); }}
-                          className="p-2 rounded-lg hover:bg-brand-primary/10 text-brand-primary hover:text-brand-primary transition-colors tooltip relative group/tt"
-                        >
-                          <Truck className="w-4 h-4" />
-                        </button>
-                        <button className="p-2 rounded-lg hover:bg-white/5 text-slate-400">
-                          <Printer className="w-4 h-4" />
-                        </button>
-                        <button className="p-2 rounded-lg hover:bg-white/5 text-slate-400">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </button>
-                      </div>
+                    <td className="px-4 md:px-6 py-4">
+                       <div className="flex items-center justify-end gap-1 md:gap-2">
+                         <button 
+                           onClick={() => { setSelectedOrderId(order.id); setIsCourierModalOpen(true); }}
+                           className="p-1.5 md:p-2 rounded-lg hover:bg-brand-primary/10 text-brand-primary transition-colors"
+                         >
+                           <Truck className="w-4 h-4" />
+                         </button>
+                         <button className="p-1.5 md:p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 text-slate-400">
+                           <Printer className="w-4 h-4" />
+                         </button>
+                         <button className="p-1.5 md:p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 text-slate-400">
+                           <MoreHorizontal className="w-4 h-4" />
+                         </button>
+                       </div>
                     </td>
                   </motion.tr>
                 );
@@ -252,7 +252,7 @@ export default function Orders() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-md glass-card p-6 shadow-2xl bg-white dark:bg-slate-900 border-slate-200 dark:border-white/5"
+              className="relative w-full max-w-md glass-card p-6 shadow-2xl"
             >
               <h3 className="text-xl font-display font-bold text-slate-900 dark:text-white mb-2">Submit to Courier</h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">Order: <span className="text-brand-primary font-mono">{selectedOrderId}</span></p>
@@ -277,7 +277,7 @@ export default function Orders() {
                       <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
                       <div>
                         <p className="text-xs text-blue-600 dark:text-blue-400 font-bold mb-1">Estimated Cost</p>
-                        <p className="text-sm text-blue-800 dark:text-blue-200">60 BDT (Dhaka Metro Delivery)</p>
+                        <p className="text-sm text-blue-800 dark:text-blue-200">{formatCurrency(60)} (Dhaka Metro Delivery)</p>
                       </div>
                    </div>
                 </div>

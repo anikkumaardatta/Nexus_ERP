@@ -12,35 +12,27 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
-    // 1. Priority: Local Storage
     const saved = localStorage.getItem('nexus-theme');
     if (saved === 'dark' || saved === 'light') return saved;
-    
-    // 2. Priority: System Preference
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
-    
-    // 3. Default: Light
-    return 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
-    localStorage.setItem('nexus-theme', theme);
     
-    // Update color-scheme meta for browser chrome
-    root.style.colorScheme = theme;
+    // Update color-scheme for browser UI
+    root.style.setProperty('color-scheme', theme);
   }, [theme]);
 
   // Listen for system theme changes
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      // Only auto-switch if user hasn't explicitly set a preference in this session
-      // or if you want it to always follow system when it changes
-      const hasExplicitPreference = localStorage.getItem('nexus-theme');
-      if (!hasExplicitPreference) {
+      // Only auto-switch if user hasn't toggled manually in this session
+      const userPreference = localStorage.getItem('nexus-theme');
+      if (!userPreference) {
         setThemeState(e.matches ? 'dark' : 'light');
       }
     };
@@ -49,8 +41,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  const toggleTheme = () => setThemeState(prev => prev === 'dark' ? 'light' : 'dark');
-  const setTheme = (newTheme: Theme) => setThemeState(newTheme);
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setThemeState(newTheme);
+    localStorage.setItem('nexus-theme', newTheme);
+  };
+
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme);
+    localStorage.setItem('nexus-theme', newTheme);
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

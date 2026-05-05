@@ -25,6 +25,24 @@ export default function POS() {
     });
   };
 
+  const updateQty = (id: string, delta: number) => {
+    setCart(prev => prev.map(item => {
+      if (item.id === id) {
+        const newQty = Math.max(0, item.qty + delta);
+        return { ...item, qty: newQty };
+      }
+      return item;
+    }).filter(item => item.qty > 0));
+  };
+
+  const subtotal = cart.reduce((acc, item) => {
+    const p = products.find(prod => prod.id === item.id);
+    return acc + (p?.price || 0) * item.qty;
+  }, 0);
+
+  const tax = subtotal * 0; // Tax 0% as per UI
+  const total = subtotal + tax;
+
   return (
     <div className="h-[calc(100vh-160px)] flex gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Products Selection */}
@@ -102,9 +120,19 @@ export default function POS() {
                               <p className="text-[10px] text-indigo-600 dark:text-indigo-400 font-black">{formatCurrency(p.price)}</p>
                            </div>
                            <div className="flex items-center gap-2 text-slate-900 dark:text-white">
-                              <button className="w-6 h-6 rounded-md glass border-slate-200 dark:border-white/10 flex items-center justify-center text-[10px]">-</button>
-                              <span className="text-xs font-bold">{item.qty}</span>
-                              <button className="w-6 h-6 rounded-md glass border-slate-200 dark:border-white/10 flex items-center justify-center text-[10px]">+</button>
+                              <button 
+                                onClick={() => updateQty(item.id, -1)}
+                                className="w-6 h-6 rounded-md glass border-slate-200 dark:border-white/10 flex items-center justify-center text-[10px] hover:bg-slate-200 dark:hover:bg-white/10 transition-all font-bold"
+                              >
+                                -
+                              </button>
+                              <span className="text-xs font-bold w-4 text-center">{item.qty}</span>
+                              <button 
+                                onClick={() => updateQty(item.id, 1)}
+                                className="w-6 h-6 rounded-md glass border-slate-200 dark:border-white/10 flex items-center justify-center text-[10px] hover:bg-slate-200 dark:hover:bg-white/10 transition-all font-bold"
+                              >
+                                +
+                              </button>
                            </div>
                         </motion.div>
                       );
@@ -117,15 +145,15 @@ export default function POS() {
                <div className="space-y-2">
                   <div className="flex justify-between text-xs font-bold">
                     <span className="text-slate-500">Subtotal</span>
-                    <span className="text-slate-900 dark:text-white">৳0</span>
+                    <span className="text-slate-900 dark:text-white">{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-xs font-bold">
                     <span className="text-slate-500">Tax (0%)</span>
-                    <span className="text-slate-900 dark:text-white">৳0</span>
+                    <span className="text-slate-900 dark:text-white">{formatCurrency(tax)}</span>
                   </div>
                   <div className="flex justify-between text-sm font-black pt-2 border-t border-slate-200 dark:border-white/5">
                     <span className="text-slate-900 dark:text-white">TOTAL</span>
-                    <span className="text-indigo-600 dark:text-indigo-400">৳0</span>
+                    <span className="text-indigo-600 dark:text-indigo-400">{formatCurrency(total)}</span>
                   </div>
                </div>
 

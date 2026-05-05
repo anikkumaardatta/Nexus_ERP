@@ -54,8 +54,13 @@ const menuConfig = [
     path: '/settings',
     subItems: [
       { label: 'General', path: '/settings/general' },
+      { label: 'Website', path: '/settings/website' },
       { label: 'Courier', path: '/settings/courier' },
-      { label: 'SMS', path: '/settings/sms' },
+      { label: 'SMS Gateway', path: '/settings/sms' },
+      { label: 'Email Config', path: '/settings/email' },
+      { label: 'Import Data', path: '/settings/import' },
+      { label: 'Categories', path: '/settings/categories' },
+      { label: 'Attributes', path: '/settings/attributes' },
     ]
   },
   { icon: HelpCircle, label: 'Support', path: '/support' },
@@ -64,9 +69,9 @@ const menuConfig = [
 const mobileNavItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
   { icon: ShoppingBag, label: 'Orders', path: '/orders' },
-  { icon: PlusCircle, label: 'POS', path: '/pos' },
+  { icon: Package, label: 'Products', path: '/inventory/products' },
   { icon: Users, label: 'Customers', path: '/customers' },
-  { icon: Settings, label: 'Settings', path: '/settings' },
+  { icon: Settings, label: 'Settings', path: '/settings/general' },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -74,6 +79,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [expandedMenus, setExpandedMenus] = useState<string[]>([]);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+
+  // Auto-expand menu based on current path
+  React.useEffect(() => {
+    const currentPath = location.pathname;
+    const parentMenu = menuConfig.find(item => 
+      item.subItems?.some(sub => currentPath.startsWith(sub.path))
+    );
+    if (parentMenu && !expandedMenus.includes(parentMenu.label)) {
+      setExpandedMenus(prev => [...prev, parentMenu.label]);
+    }
+  }, [location.pathname]);
 
   const toggleMenu = (label: string) => {
     setExpandedMenus(prev => 
@@ -177,7 +193,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="p-4 border-t border-slate-200 dark:border-white/5">
            <button 
              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-             className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-slate-500 transition-all font-medium"
+             className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 transition-all font-medium"
            >
              {isSidebarCollapsed ? <ChevronRight className="mx-auto" /> : <><ChevronLeft className="w-5 h-5" /> <span className="text-sm">Collapse OS</span></>}
            </button>
@@ -189,11 +205,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         className={cn(
           "flex-1 flex flex-col min-h-screen transition-all duration-300",
           !isSidebarCollapsed ? "md:ml-[280px]" : "md:ml-20",
-          "pb-20 md:pb-0"
+          "pb-[calc(64px+env(safe-area-inset-bottom,16px))] md:pb-0"
         )}
       >
         {/* Header */}
-        <header className="sticky top-0 z-40 h-20 glass-sidebar flex items-center justify-between px-8 border-b border-slate-200 dark:border-white/5">
+        <header className="sticky top-0 z-40 h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 border-b border-slate-200 dark:border-white/5">
           <div className="md:hidden flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
                 <LayoutDashboard className="w-5 h-5 text-white" />
@@ -202,17 +218,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
-             <div className="glass px-4 py-2 rounded-2xl flex items-center gap-2 border-slate-200 dark:border-white/5">
+             <div className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 px-4 py-2 rounded-2xl flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">System Status: Stable</span>
              </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <motion.button 
               onClick={toggleTheme}
               whileTap={{ scale: 0.9 }}
-              className="p-3 rounded-2xl glass hover:bg-indigo-500/5 text-slate-600 dark:text-indigo-400 border-slate-200 dark:border-white/5 transition-all relative overflow-hidden group"
+              className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-indigo-500/5 text-slate-600 dark:text-indigo-400 border border-slate-200 dark:border-white/10 transition-all relative overflow-hidden group"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -223,43 +239,68 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   transition={{ duration: 0.2 }}
                   className="flex items-center justify-center"
                 >
-                  {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                  {theme === 'dark' ? <Sun className="w-4 h-4 md:w-5 h-5" /> : <Moon className="w-4 h-4 md:w-5 h-5" />}
                 </motion.div>
               </AnimatePresence>
             </motion.button>
-            <button className="p-3 rounded-2xl glass border-slate-200 dark:border-white/5 hover:bg-slate-500/5 text-slate-500 dark:text-slate-400 relative">
-               <Bell className="w-5 h-5" />
-               <span className="absolute top-3 right-3 w-2 h-2 bg-indigo-500 rounded-full border-2 border-[var(--background)]" />
+            <button className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-500/5 text-slate-500 dark:text-slate-400 relative">
+               <Bell className="w-4 h-4 md:w-5 h-5" />
+               <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-indigo-500 rounded-full border-2 border-white dark:border-slate-900" />
             </button>
-            <div className="h-8 w-px bg-slate-200 dark:bg-white/10 mx-2 hidden sm:block" />
+            <div className="h-6 w-px bg-slate-200 dark:bg-white/10 mx-1 hidden sm:block" />
             <div className="flex items-center gap-3 cursor-pointer group">
-               <div className="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-white/5 overflow-hidden group-hover:border-indigo-500/50 transition-all">
+               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-white/5 overflow-hidden group-hover:border-indigo-500/50 transition-all">
                   <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar" className="w-full h-full object-cover" />
                </div>
             </div>
           </div>
         </header>
 
-        <main className="p-6 md:p-10 flex-1 overflow-x-hidden">
-          {children}
+        <main className="p-4 md:p-8 lg:p-10 flex-1 w-full max-w-full overflow-x-hidden box-border">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="w-full"
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
         </main>
       </div>
 
       {/* Mobile Nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-20 glass-sidebar z-[100] flex items-center justify-around px-2 border-r-0 border-t border-slate-200 dark:border-white/5">
-        {mobileNavItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={({ isActive }) => cn(
-              "flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all duration-200 text-slate-500",
-              isActive && "text-indigo-600 dark:text-indigo-400 bg-indigo-500/5 dark:bg-white/5"
-            )}
-          >
-            <item.icon className="w-6 h-6" />
-            <span className="text-[10px] font-bold uppercase tracking-widest">{item.label}</span>
-          </NavLink>
-        ))}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[100] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-white/5 overflow-hidden w-full max-w-[100vw] px-2">
+        <div className="flex items-center justify-between h-[64px] mb-[env(safe-area-inset-bottom)]">
+          {mobileNavItems.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) => cn(
+                "flex-1 flex flex-col items-center justify-center gap-1 h-full min-w-0 transition-all duration-200 relative",
+                isActive ? "text-indigo-600 dark:text-indigo-400" : "text-slate-500 dark:text-slate-400"
+              )}
+            >
+              {({ isActive }) => (
+                <>
+                  <item.icon className={cn("w-5 h-5 transition-transform", isActive && "scale-110")} />
+                  <span className="text-[9px] font-semibold uppercase tracking-tight truncate w-full text-center px-1">
+                    {item.label}
+                  </span>
+                  {isActive && (
+                    <motion.div 
+                      layoutId="mobile-nav-indicator"
+                      className="absolute top-0 left-1/4 right-1/4 h-0.5 bg-indigo-600 dark:bg-indigo-400 rounded-full"
+                    />
+                  )}
+                </>
+              )}
+            </NavLink>
+          ))}
+        </div>
       </nav>
     </div>
   );

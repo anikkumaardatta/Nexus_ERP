@@ -6,9 +6,15 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-BD', {
-    style: 'currency',
-    currency: 'BDT',
-    minimumFractionDigits: 0,
-  }).format(amount);
+  try {
+    return new Intl.NumberFormat('en-BD', {
+      style: 'currency',
+      currency: 'BDT',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  } catch (error) {
+    console.error('Currency formatting error, falling back to simple format', error);
+    return `৳${amount.toLocaleString()}`;
+  }
 };

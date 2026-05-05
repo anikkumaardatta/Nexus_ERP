@@ -59,7 +59,7 @@ export default function CreateOrderModal({ isOpen, onClose }: CreateOrderModalPr
         initial={{ scale: 0.95, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-        className="relative w-full max-w-4xl max-h-[90vh] glass-card shadow-2xl rounded-3xl flex flex-col overflow-hidden text-slate-900 dark:text-slate-200 bg-white dark:bg-slate-900 border-slate-200 dark:border-white/5"
+        className="relative w-full max-w-4xl max-h-[90vh] glass-card shadow-2xl rounded-3xl flex flex-col overflow-hidden text-slate-900 dark:text-slate-200"
       >
         {/* Header */}
         <div className="p-6 border-b border-slate-200 dark:border-white/5 flex items-center justify-between bg-slate-50 dark:bg-white/[0.02]">
@@ -217,7 +217,7 @@ export default function CreateOrderModal({ isOpen, onClose }: CreateOrderModalPr
                          <button className="w-8 h-8 rounded-lg glass border-slate-200 dark:border-white/5 flex items-center justify-center text-slate-600 dark:text-slate-400">+</button>
                       </div>
                       <div className="w-24 text-right">
-                         <p className="text-sm font-bold text-slate-900 dark:text-white">৳2,450</p>
+                         <p className="text-sm font-bold text-slate-900 dark:text-white">{formatCurrency(2450)}</p>
                       </div>
                       <button className="p-2 text-rose-500 hover:bg-rose-500/10 rounded-lg">
                         <Trash2 className="w-4 h-4" />
@@ -246,7 +246,7 @@ export default function CreateOrderModal({ isOpen, onClose }: CreateOrderModalPr
                    <div className="space-y-4">
                       <div className="flex justify-between items-center text-sm">
                         <span className="text-slate-500 font-medium">Subtotal</span>
-                        <span className="text-slate-900 dark:text-white font-bold">৳2,450</span>
+                        <span className="text-slate-900 dark:text-white font-bold">{formatCurrency(2450)}</span>
                       </div>
                       <div className="flex justify-between items-center text-lg font-black text-indigo-600 dark:text-indigo-400">
                         <span>Grand Total</span>
@@ -276,7 +276,7 @@ export default function CreateOrderModal({ isOpen, onClose }: CreateOrderModalPr
                       </div>
                       <div className="flex justify-between text-xs">
                         <dt className="text-slate-500 font-bold uppercase tracking-widest">COD Amount</dt>
-                        <dd className="text-emerald-600 dark:text-emerald-400 font-black text-lg">৳2,580</dd>
+                        <dd className="text-emerald-600 dark:text-emerald-400 font-black text-lg">{formatCurrency(2580)}</dd>
                       </div>
                    </dl>
                 </div>
