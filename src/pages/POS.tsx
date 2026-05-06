@@ -47,19 +47,19 @@ export default function POS() {
     <div className="h-[calc(100vh-160px)] flex gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Products Selection */}
       <div className="flex-1 flex flex-col gap-6">
-         <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-display font-black text-slate-900 dark:text-white italic tracking-tighter">TERMINAL.POS</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-display font-black text-foreground italic tracking-tighter">TERMINAL.POS</h2>
             <div className="flex gap-2">
-               <button className="p-2 glass border-slate-200 dark:border-white/5 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all"><Grid className="w-5 h-5" /></button>
-               <button className="p-2 glass border-slate-200 dark:border-white/5 rounded-xl text-indigo-600 dark:text-indigo-400 bg-indigo-500/10"><List className="w-5 h-5" /></button>
+               <button className="p-2 glass border-border rounded-xl text-muted hover:text-foreground transition-all"><Grid className="w-5 h-5" /></button>
+               <button className="p-2 glass border-border rounded-xl text-indigo-600 dark:text-indigo-400 bg-indigo-500/10"><List className="w-5 h-5" /></button>
             </div>
          </div>
 
          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
             <input 
               placeholder="Search products or scan barcode..." 
-              className="w-full bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 p-4 pl-14 rounded-2xl outline-none focus:border-indigo-500/50 transition-all font-medium text-slate-900 dark:text-white"
+              className="w-full bg-surface border border-border p-4 pl-14 rounded-2xl outline-none focus:border-indigo-500/50 transition-all font-medium text-foreground"
             />
          </div>
 
@@ -70,13 +70,13 @@ export default function POS() {
                 onClick={() => addToCart(product.id)}
                 className="p-4 cursor-pointer border-slate-200 dark:border-white/5 hover:border-indigo-500/50 transition-all active:scale-95 flex flex-col group h-fit"
               >
-                 <div className="aspect-square rounded-xl bg-slate-100 dark:bg-white/5 overflow-hidden mb-4 border border-slate-200 dark:border-white/5">
+                 <div className="aspect-square rounded-xl bg-surface overflow-hidden mb-4 border border-border">
                     <img src={product.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                  </div>
-                 <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">{product.name}</h4>
+                 <h4 className="text-sm font-bold text-foreground mb-1">{product.name}</h4>
                  <div className="flex justify-between items-center">
                     <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">{formatCurrency(product.price)}</span>
-                    <span className="text-[10px] font-black text-slate-500 uppercase">Stock: {product.stock}</span>
+                    <span className="text-[10px] font-black text-muted uppercase">Stock: {product.stock}</span>
                  </div>
               </GlassCard>
             ))}
@@ -85,9 +85,9 @@ export default function POS() {
 
       {/* Cart Sidebar */}
       <aside className="w-96 flex flex-col gap-6">
-         <GlassCard className="flex-1 flex flex-col overflow-hidden p-0 border-slate-200 dark:border-white/5">
-            <div className="p-6 border-b border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] flex items-center justify-between">
-               <h3 className="text-sm font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+         <GlassCard className="flex-1 flex flex-col overflow-hidden p-0 border-border">
+            <div className="p-6 border-b border-border bg-surface flex items-center justify-between">
+               <h3 className="text-sm font-black uppercase tracking-widest text-muted flex items-center gap-2">
                  <ShoppingCart className="w-4 h-4" /> Current Order
                </h3>
                <button onClick={() => setCart([])} className="text-[10px] font-black text-rose-500 hover:underline uppercase tracking-widest">Clear</button>
@@ -96,7 +96,7 @@ export default function POS() {
             <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
                <AnimatePresence mode="popLayout">
                  {cart.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-600 py-20">
+                    <div className="h-full flex flex-col items-center justify-center text-muted/40 py-20">
                        <ShoppingCart className="w-12 h-12 mb-4 opacity-40" />
                        <p className="text-xs font-bold uppercase tracking-widest italic opacity-40">Terminal Empty</p>
                     </div>
@@ -110,26 +110,26 @@ export default function POS() {
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: -20 }}
                           key={item.id} 
-                          className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5"
+                          className="flex items-center gap-3 p-3 rounded-xl bg-surface border border-border"
                         >
-                           <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-white/5 overflow-hidden">
+                           <div className="w-10 h-10 rounded-lg bg-surface overflow-hidden">
                               <img src={p.image} className="w-full h-full object-cover" />
                            </div>
                            <div className="flex-1">
-                              <h5 className="text-xs font-bold text-slate-900 dark:text-white">{p.name}</h5>
+                              <h5 className="text-xs font-bold text-foreground">{p.name}</h5>
                               <p className="text-[10px] text-indigo-600 dark:text-indigo-400 font-black">{formatCurrency(p.price)}</p>
                            </div>
-                           <div className="flex items-center gap-2 text-slate-900 dark:text-white">
+                           <div className="flex items-center gap-2 text-foreground">
                               <button 
                                 onClick={() => updateQty(item.id, -1)}
-                                className="w-6 h-6 rounded-md glass border-slate-200 dark:border-white/10 flex items-center justify-center text-[10px] hover:bg-slate-200 dark:hover:bg-white/10 transition-all font-bold"
+                                className="w-6 h-6 rounded-md glass border-border dark:border-white/10 flex items-center justify-center text-[10px] hover:bg-surface-hover transition-all font-bold"
                               >
                                 -
                               </button>
                               <span className="text-xs font-bold w-4 text-center">{item.qty}</span>
                               <button 
                                 onClick={() => updateQty(item.id, 1)}
-                                className="w-6 h-6 rounded-md glass border-slate-200 dark:border-white/10 flex items-center justify-center text-[10px] hover:bg-slate-200 dark:hover:bg-white/10 transition-all font-bold"
+                                className="w-6 h-6 rounded-md glass border-border dark:border-white/10 flex items-center justify-center text-[10px] hover:bg-surface-hover transition-all font-bold"
                               >
                                 +
                               </button>
@@ -141,27 +141,27 @@ export default function POS() {
                </AnimatePresence>
             </div>
 
-            <div className="p-6 border-t border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.02] space-y-4">
+            <div className="p-6 border-t border-border bg-surface space-y-4">
                <div className="space-y-2">
                   <div className="flex justify-between text-xs font-bold">
-                    <span className="text-slate-500">Subtotal</span>
-                    <span className="text-slate-900 dark:text-white">{formatCurrency(subtotal)}</span>
+                    <span className="text-muted">Subtotal</span>
+                    <span className="text-foreground">{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-xs font-bold">
-                    <span className="text-slate-500">Tax (0%)</span>
-                    <span className="text-slate-900 dark:text-white">{formatCurrency(tax)}</span>
+                    <span className="text-muted">Tax (0%)</span>
+                    <span className="text-foreground">{formatCurrency(tax)}</span>
                   </div>
-                  <div className="flex justify-between text-sm font-black pt-2 border-t border-slate-200 dark:border-white/5">
-                    <span className="text-slate-900 dark:text-white">TOTAL</span>
+                  <div className="flex justify-between text-sm font-black pt-2 border-t border-border">
+                    <span className="text-foreground">TOTAL</span>
                     <span className="text-indigo-600 dark:text-indigo-400">{formatCurrency(total)}</span>
                   </div>
                </div>
 
                <div className="grid grid-cols-2 gap-3">
-                  <button className="py-3 px-4 glass border-slate-200 dark:border-white/5 rounded-xl flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">
+                  <button className="py-3 px-4 glass border-border rounded-xl flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted hover:text-foreground transition-all">
                      <UserPlus className="w-4 h-4" /> Customer
                   </button>
-                  <button className="py-3 px-4 glass border-slate-200 dark:border-white/5 rounded-xl flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">
+                  <button className="py-3 px-4 glass border-border rounded-xl flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted hover:text-foreground transition-all">
                      <Zap className="w-4 h-4" /> Discount
                   </button>
                </div>

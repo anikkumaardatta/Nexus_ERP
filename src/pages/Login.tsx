@@ -34,25 +34,25 @@ export default function Login() {
            >
               <LayoutDashboard className="w-8 h-8 text-white" />
            </motion.div>
-           <h1 className="text-4xl font-display font-black text-slate-900 dark:text-white tracking-tighter mb-2">NEXUS<span className="text-indigo-500 text-lg ml-1">OS</span></h1>
-           <p className="text-slate-500 font-medium tracking-wide flex items-center gap-2">
+           <h1 className="text-4xl font-display font-black text-foreground tracking-tighter mb-2">NEXUS<span className="text-indigo-500 text-lg ml-1">OS</span></h1>
+           <p className="text-muted font-medium tracking-wide flex items-center gap-2">
              <Shield className="w-3 h-3" /> SECURE ENTERPRISE GATEWAY
            </p>
         </div>
 
-        <div className="glass p-8 rounded-[2rem] border-slate-200 dark:border-white/5 space-y-8 relative overflow-hidden shadow-2xl">
+        <div className="glass p-8 rounded-[2rem] border-border space-y-8 relative overflow-hidden shadow-2xl">
            <div className="absolute top-0 right-0 p-4 opacity-5 dark:opacity-10">
-              <Sparkles className="w-12 h-12 text-slate-900 dark:text-white" />
+              <Sparkles className="w-12 h-12 text-foreground" />
            </div>
 
            <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Universal ID</label>
+                 <label className="text-[10px] font-black text-muted uppercase tracking-widest ml-1">Universal ID</label>
                  <div className="relative">
                     <input 
                       type="email" 
                       placeholder="admin@nexus.ai" 
-                      className="w-full bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 p-4 rounded-2xl outline-none focus:border-indigo-500/50 transition-all text-slate-900 dark:text-white font-medium placeholder:text-slate-400"
+                      className="w-full bg-surface border border-border p-4 rounded-2xl outline-none focus:border-indigo-500/50 transition-all text-foreground font-medium placeholder:text-slate-400"
                       required
                     />
                  </div>
@@ -60,17 +60,17 @@ export default function Login() {
 
               <div className="space-y-2">
                  <div className="flex justify-between items-center ml-1">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Access Key</label>
+                    <label className="text-[10px] font-black text-muted uppercase tracking-widest">Access Key</label>
                     <button type="button" className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest hover:underline">Lost Key?</button>
                  </div>
                  <div className="relative">
                     <input 
                       type="password" 
                       placeholder="••••••••" 
-                      className="w-full bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 p-4 rounded-2xl outline-none focus:border-indigo-500/50 transition-all text-slate-900 dark:text-white font-medium placeholder:text-slate-400"
+                      className="w-full bg-surface border border-border p-4 rounded-2xl outline-none focus:border-indigo-500/50 transition-all text-foreground font-medium placeholder:text-slate-400"
                       required
                     />
-                    <Lock className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-600" />
+                    <Lock className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted dark:text-slate-600" />
                  </div>
               </div>
 

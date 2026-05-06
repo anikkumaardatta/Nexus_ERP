@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", sans-serif;
@@ -11,45 +13,46 @@
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
 
-  --color-border-primary: var(--border);
-  --color-bg-base: var(--background);
-  --color-bg-surface: var(--surface);
-  --color-text-base: var(--foreground);
-  --color-text-muted: var(--muted);
-  --color-text-subtle: var(--muted-foreground);
-  --color-glass: var(--glass);
-  --color-glass-border: var(--glass-border);
+  /* Semantic Theme Colors */
+  --color-background: var(--bg-main);
+  --color-foreground: var(--text-main);
+  --color-muted: var(--text-muted);
+  --color-border: var(--border-main);
+  --color-surface: var(--bg-surface);
+  --color-surface-hover: var(--bg-surface-hover);
 }
 
 @layer base {
   :root {
-    --background: #fdfdfd;
-    --foreground: #020617;
-    --muted: #475569;
-    --muted-foreground: #94a3b8;
-    --border: #e2e8f0;
+    --bg-main: #fdfdfd;
+    --bg-surface: #f8fafc;
+    --bg-surface-hover: #f1f5f9;
+    --text-main: #020617;
+    --text-muted: #64748b;
+    --border-main: #e2e8f0;
+    
     --glass: rgba(255, 255, 255, 0.75);
     --glass-border: rgba(0, 0, 0, 0.08);
     --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --sidebar-bg: #ffffff;
-    --surface: #f8fafc;
   }
 
   .dark {
-    --background: #020617;
-    --foreground: #f8fafc;
-    --muted: #94a3b8;
-    --muted-foreground: #475569;
-    --border: rgba(255, 255, 255, 0.1);
+    --bg-main: #020617;
+    --bg-surface: #0f172a;
+    --bg-surface-hover: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-main: rgba(255, 255, 255, 0.1);
+    
     --glass: rgba(15, 23, 42, 0.6);
     --glass-border: rgba(255, 255, 255, 0.1);
     --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --sidebar-bg: #020617;
-    --surface: #0f172a;
   }
 
   html, body {
-    overflow-x: hidden;
+    overflow-x: auto;
     max-width: 100%;
     width: 100%;
     margin: 0;
@@ -58,8 +61,8 @@
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: var(--bg-main);
+    color: var(--text-main);
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 

@@ -106,7 +106,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           isSidebarCollapsed ? "w-20" : "w-[280px]"
         )}
       >
-        <div className="h-20 flex items-center px-6 border-b border-slate-200 dark:border-white/5">
+        <div className="h-20 flex items-center px-6 border-b border-border">
           <div className="flex items-center gap-3">
              <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
                 <LayoutDashboard className="w-6 h-6 text-white" />
@@ -115,7 +115,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                <motion.span 
                  initial={{ opacity: 0, x: -10 }}
                  animate={{ opacity: 1, x: 0 }}
-                 className="font-display font-black text-2xl tracking-tighter"
+                 className="font-display font-black text-2xl tracking-tighter text-foreground"
                >
                  NEXUS
                </motion.span>
@@ -133,8 +133,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     className={cn(
                       "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
                       expandedMenus.includes(item.label) && !isSidebarCollapsed 
-                        ? "bg-indigo-500/10 text-indigo-500 dark:bg-white/5 dark:text-white" 
-                        : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5"
+                        ? "bg-indigo-500/10 text-indigo-500 dark:bg-white/5 dark:text-foreground" 
+                        : "text-muted hover:text-foreground hover:bg-surface-hover"
                     )}
                   >
                     <item.icon className="w-5 h-5 shrink-0" />
@@ -151,7 +151,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden bg-slate-100/50 dark:bg-black/10 rounded-xl mt-1"
+                        className="overflow-hidden bg-surface-hover/30 rounded-xl mt-1"
                       >
                         {item.subItems.map((sub) => (
                           <NavLink
@@ -161,7 +161,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                               "flex items-center px-12 py-2.5 text-xs font-medium transition-colors",
                               isActive 
                                 ? "text-indigo-600 dark:text-indigo-400 font-bold" 
-                                : "text-slate-500 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white"
+                                : "text-muted hover:text-foreground"
                             )}
                           >
                             {sub.label}
@@ -178,7 +178,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     "flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
                     isActive 
                       ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" 
-                      : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5",
+                      : "text-muted hover:text-foreground hover:bg-surface-hover",
                     isSidebarCollapsed && "justify-center"
                   )}
                 >
@@ -190,10 +190,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           ))}
         </nav>
 
-        <div className="p-4 border-t border-slate-200 dark:border-white/5">
+        <div className="p-4 border-t border-border">
            <button 
              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-             className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400 transition-all font-medium"
+             className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-surface-hover text-muted transition-all font-medium"
            >
              {isSidebarCollapsed ? <ChevronRight className="mx-auto" /> : <><ChevronLeft className="w-5 h-5" /> <span className="text-sm">Collapse OS</span></>}
            </button>
@@ -209,18 +209,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       >
         {/* Header */}
-        <header className="sticky top-0 z-40 h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 border-b border-slate-200 dark:border-white/5">
+        <header className="sticky top-0 z-40 h-20 bg-background/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 border-b border-border">
           <div className="md:hidden flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
                 <LayoutDashboard className="w-5 h-5 text-white" />
               </div>
-              <span className="font-display font-black text-xl tracking-tighter text-slate-900 dark:text-white">NEXUS</span>
+              <span className="font-display font-black text-xl tracking-tighter text-foreground">NEXUS</span>
           </div>
 
           <div className="hidden md:flex items-center gap-4">
-             <div className="bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 px-4 py-2 rounded-2xl flex items-center gap-2">
+             <div className="bg-surface border border-border px-4 py-2 rounded-2xl flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">System Status: Stable</span>
+                <span className="text-xs font-bold text-muted uppercase tracking-widest">System Status: Stable</span>
              </div>
           </div>
 
@@ -228,7 +228,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <motion.button 
               onClick={toggleTheme}
               whileTap={{ scale: 0.9 }}
-              className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-indigo-500/5 text-slate-600 dark:text-indigo-400 border border-slate-200 dark:border-white/10 transition-all relative overflow-hidden group"
+              className="p-2.5 rounded-xl bg-surface hover:bg-indigo-500/5 text-muted dark:text-indigo-400 border border-border dark:border-white/10 transition-all relative overflow-hidden group"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -243,13 +243,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </motion.div>
               </AnimatePresence>
             </motion.button>
-            <button className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-500/5 text-slate-500 dark:text-slate-400 relative">
+            <button className="p-2.5 rounded-xl bg-surface border border-border dark:border-white/10 hover:bg-slate-500/5 text-muted relative">
                <Bell className="w-4 h-4 md:w-5 h-5" />
-               <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-indigo-500 rounded-full border-2 border-white dark:border-slate-900" />
+               <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-indigo-500 rounded-full border-2 border-background" />
             </button>
-            <div className="h-6 w-px bg-slate-200 dark:bg-white/10 mx-1 hidden sm:block" />
+            <div className="h-6 w-px bg-border mx-1 hidden sm:block" />
             <div className="flex items-center gap-3 cursor-pointer group">
-               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-white/5 overflow-hidden group-hover:border-indigo-500/50 transition-all">
+               <div className="w-10 h-10 rounded-xl bg-surface border-2 border-border dark:border-white/5 overflow-hidden group-hover:border-indigo-500/50 transition-all">
                   <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar" className="w-full h-full object-cover" />
                </div>
             </div>
