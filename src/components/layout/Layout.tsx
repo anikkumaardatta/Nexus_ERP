@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { 
-  LayoutDashboard, ShoppingBag, Package, Users, Truck, Wallet, Settings, 
-  ChevronRight, Bell, ChevronLeft, Sun, Moon, Database, BarChart3, 
+import {
+  LayoutDashboard, ShoppingBag, Package, Users, Truck, Wallet, Settings,
+  ChevronRight, Bell, ChevronLeft, Sun, Moon, Database, BarChart3,
   HelpCircle, Monitor, ChevronDown, PlusCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -11,9 +11,9 @@ import { useTheme } from '../../context/ThemeContext';
 
 const menuConfig = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-  { 
-    icon: ShoppingBag, 
-    label: 'Orders', 
+  {
+    icon: ShoppingBag,
+    label: 'Orders',
     path: '/orders',
     subItems: [
       { label: 'Create New', path: '/orders/new' },
@@ -25,9 +25,9 @@ const menuConfig = [
       { label: 'Bulk Print', path: '/orders/bulk' },
     ]
   },
-  { 
-    icon: Database, 
-    label: 'Inventory', 
+  {
+    icon: Database,
+    label: 'Inventory',
     path: '/inventory',
     subItems: [
       { label: 'Products', path: '/inventory/products' },
@@ -37,9 +37,9 @@ const menuConfig = [
   },
   { icon: Monitor, label: 'POS', path: '/pos' },
   { icon: Users, label: 'Customers', path: '/customers' },
-  { 
-    icon: BarChart3, 
-    label: 'Reports', 
+  {
+    icon: BarChart3,
+    label: 'Reports',
     path: '/reports',
     subItems: [
       { label: 'Summary', path: '/reports/summary' },
@@ -48,9 +48,9 @@ const menuConfig = [
     ]
   },
   { icon: Wallet, label: 'Billing', path: '/billing' },
-  { 
-    icon: Settings, 
-    label: 'Settings', 
+  {
+    icon: Settings,
+    label: 'Settings',
     path: '/settings',
     subItems: [
       { label: 'General', path: '/settings/general' },
@@ -82,8 +82,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   // Auto-expand menu based on current path
   React.useEffect(() => {
+    const appVersion = "( 1.0.0 )"
     const currentPath = location.pathname;
-    const parentMenu = menuConfig.find(item => 
+    const parentMenu = menuConfig.find(item =>
       item.subItems?.some(sub => currentPath.startsWith(sub.path))
     );
     if (parentMenu && !expandedMenus.includes(parentMenu.label)) {
@@ -92,7 +93,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, [location.pathname]);
 
   const toggleMenu = (label: string) => {
-    setExpandedMenus(prev => 
+    setExpandedMenus(prev =>
       prev.includes(label) ? prev.filter(i => i !== label) : [...prev, label]
     );
   };
@@ -100,7 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex bg-transparent">
       {/* Desktop Sidebar */}
-      <aside 
+      <aside
         className={cn(
           "hidden md:flex flex-col glass-sidebar fixed inset-y-0 left-0 z-50 transition-all duration-300",
           isSidebarCollapsed ? "w-20" : "w-[280px]"
@@ -108,18 +109,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       >
         <div className="h-20 flex items-center px-6 border-b border-border">
           <div className="flex items-center gap-3">
-             <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                <LayoutDashboard className="w-6 h-6 text-white" />
-             </div>
-             {!isSidebarCollapsed && (
-               <motion.span 
-                 initial={{ opacity: 0, x: -10 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 className="font-display font-black text-2xl tracking-tighter text-foreground"
-               >
-                 NEXUS
-               </motion.span>
-             )}
+            <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+              <LayoutDashboard className="w-6 h-6 text-white" />
+            </div>
+            {!isSidebarCollapsed && (
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="font-display font-black text-2xl tracking-tighter text-foreground"
+              >
+                NEXUS <span className="font-display text-xs tracking-tighter text-slate-500 dark:text-slate-400">
+                  (Beta)
+                </span>
+              </motion.span>
+            )}
           </div>
         </div>
 
@@ -132,8 +135,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     onClick={() => !isSidebarCollapsed && toggleMenu(item.label)}
                     className={cn(
                       "w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
-                      expandedMenus.includes(item.label) && !isSidebarCollapsed 
-                        ? "bg-indigo-500/10 text-indigo-500 dark:bg-white/5 dark:text-foreground" 
+                      expandedMenus.includes(item.label) && !isSidebarCollapsed
+                        ? "bg-indigo-500/10 text-indigo-500 dark:bg-white/5 dark:text-foreground"
                         : "text-muted hover:text-foreground hover:bg-surface-hover"
                     )}
                   >
@@ -159,8 +162,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                             to={sub.path}
                             className={({ isActive }) => cn(
                               "flex items-center px-12 py-2.5 text-xs font-medium transition-colors",
-                              isActive 
-                                ? "text-indigo-600 dark:text-indigo-400 font-bold" 
+                              isActive
+                                ? "text-indigo-600 dark:text-indigo-400 font-bold"
                                 : "text-muted hover:text-foreground"
                             )}
                           >
@@ -176,8 +179,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   to={item.path}
                   className={({ isActive }) => cn(
                     "flex items-center gap-3 px-4 py-3 rounded-xl transition-all group",
-                    isActive 
-                      ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20" 
+                    isActive
+                      ? "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20"
                       : "text-muted hover:text-foreground hover:bg-surface-hover",
                     isSidebarCollapsed && "justify-center"
                   )}
@@ -191,17 +194,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </nav>
 
         <div className="p-4 border-t border-border">
-           <button 
-             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-             className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-surface-hover text-muted transition-all font-medium"
-           >
-             {isSidebarCollapsed ? <ChevronRight className="mx-auto" /> : <><ChevronLeft className="w-5 h-5" /> <span className="text-sm">Collapse OS</span></>}
-           </button>
+          <button
+            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+            className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-surface-hover text-muted transition-all font-medium"
+          >
+            {isSidebarCollapsed ? <ChevronRight className="mx-auto" /> : <><ChevronLeft className="w-5 h-5" /> <span className="text-sm">Collapse OS</span></>}
+          </button>
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <div 
+      <div
         className={cn(
           "flex-1 flex flex-col min-h-screen transition-all duration-300",
           !isSidebarCollapsed ? "md:ml-[280px]" : "md:ml-20",
@@ -211,21 +214,24 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {/* Header */}
         <header className="sticky top-0 z-40 h-20 bg-background/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 border-b border-border">
           <div className="md:hidden flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
-                <LayoutDashboard className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-display font-black text-xl tracking-tighter text-foreground">NEXUS</span>
+            <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
+              <LayoutDashboard className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-display font-black text-xl tracking-tighter text-foreground">NEXUS</span>
+            <span className="font-display text-xs tracking-tighter text-slate-500 dark:text-slate-400">
+              (Beta)
+            </span>
           </div>
 
           <div className="hidden md:flex items-center gap-4">
-             <div className="bg-surface border border-border px-4 py-2 rounded-2xl flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-bold text-muted uppercase tracking-widest">System Status: Stable</span>
-             </div>
+            <div className="bg-surface border border-border px-4 py-2 rounded-2xl flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-bold text-muted uppercase tracking-widest">System Status: Stable</span>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
-            <motion.button 
+            <motion.button
               onClick={toggleTheme}
               whileTap={{ scale: 0.9 }}
               className="p-2.5 rounded-xl bg-surface hover:bg-indigo-500/5 text-muted dark:text-indigo-400 border border-border dark:border-white/10 transition-all relative overflow-hidden group"
@@ -244,14 +250,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </AnimatePresence>
             </motion.button>
             <button className="p-2.5 rounded-xl bg-surface border border-border dark:border-white/10 hover:bg-slate-500/5 text-muted relative">
-               <Bell className="w-4 h-4 md:w-5 h-5" />
-               <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-indigo-500 rounded-full border-2 border-background" />
+              <Bell className="w-4 h-4 md:w-5 h-5" />
+              <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-indigo-500 rounded-full border-2 border-background" />
             </button>
             <div className="h-6 w-px bg-border mx-1 hidden sm:block" />
             <div className="flex items-center gap-3 cursor-pointer group">
-               <div className="w-10 h-10 rounded-xl bg-surface border-2 border-border dark:border-white/5 overflow-hidden group-hover:border-indigo-500/50 transition-all">
-                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar" className="w-full h-full object-cover" />
-               </div>
+              <div className="w-10 h-10 rounded-xl bg-surface border-2 border-border dark:border-white/5 overflow-hidden group-hover:border-indigo-500/50 transition-all">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar" className="w-full h-full object-cover" />
+              </div>
             </div>
           </div>
         </header>
@@ -291,7 +297,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     {item.label}
                   </span>
                   {isActive && (
-                    <motion.div 
+                    <motion.div
                       layoutId="mobile-nav-indicator"
                       className="absolute top-0 left-1/4 right-1/4 h-0.5 bg-indigo-600 dark:bg-indigo-400 rounded-full"
                     />
